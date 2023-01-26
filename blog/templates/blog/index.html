@@ -1,0 +1,36 @@
+{% extends 'catalog/base.html' %}
+{% load my_filter %}
+
+{% block content %}
+    <table class="table table-dark table-striped">
+        <thead>
+        <tr>
+            <td>ID</td>
+            <td>Наименование</td>
+            <td>Описание</td>
+            <td>Фото</td>
+            <td>Цена</td>
+            <td>Дата создания</td>
+            <td>Дата заполнения</td>
+        </tr>
+        </thead>
+        <tbody>
+        {% for object in object_list %}
+            <tr>
+                <td>{{ object.id }}</td>
+                <td>{{ object.name }}</td>
+                <td>{{ object.description|truncatechars:100 }}</td>
+                <td>
+{#                    <img src="{{ object.photo.url }}" />#}
+{#                    <img src="/media/{{ object.photo }}" width=100 />#}
+{#                    <img src="{{ object.photo|mediapath }}" width=100 />#}
+                    <img src="{% mediapath object.photo %}" width=100 />
+                </td>
+                <td>{{ object.price }}</td>
+                <td>{{ object.date_org|date:"d.m.Y" }}</td>
+                <td>{{ object.date_fill|date:"d.m.Y" }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
