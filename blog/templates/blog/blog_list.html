@@ -8,23 +8,33 @@
             <td>Содержание</td>
             <td>Превью</td>
             <td>Дата создания</td>
-            <td>Статус</td>
+            <td>Опубликовано</td>
             <td>Кол-во просмотров</td>
         </tr>
         </thead>
+        <p>{{ posts }}</p>
         <tbody>
-        {% for object in object_list %}
+
+        {% for object in posts %}
             <tr>
-{#                <td>#}
-{#                    <a class="btn btn-outline-success w-50" href="{% url 'blog:detail' object.pk %}"#}
-{#                </td>#}
+                <td>
+                    <a class="btn btn-outline-success w-50" href="{% url 'blog:detail' object.pk %}"></a>
+                </td>
                 <td>{{ object.title }}</td>
                 <td>{{ object.description|truncatechars:100 }}</td>
                 <td>
                     <img src="/media/{{ object.preview }}" width=100 />
                 </td>
                 <td>{{ object.date_org|date:"d.m.Y" }}</td>
-                <td>{{ object.published }}</td>
+{#                <td>{{ object.published }}</td>#}
+                <td>
+                    {{ object.get_published_display|title }}
+                    {% if object.published == 'active' %}
+                        <a class="btn btn-danger" href="{% url 'blog:status' object.pk %}" X></a>
+                    {% else %}
+                        <a class="btn btn-success" href="{% url 'blog:status' object.pk %}" V></a>
+                    {% endif %}
+                </td>
                 <td>{{ object.views_cntr }}</td>
                 <td>
                     <a class="btn btn-info" href="{% url 'blog:update' object.pk %}">Update</a>
