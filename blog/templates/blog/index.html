@@ -17,12 +17,12 @@
         {% for object in object_list %}
             <tr>
                 <td>{{ object.title }}</td>
-                <td>{{ object.description|truncatechars:100 }}</td>
+                <td>{{ object.content|truncatechars:100 }}</td>
                 <td>
                     <img src="/media/{{ object.preview }}" width=100  alt=""/>
                 </td>
-                <td>{{ object.date_org|date:"d.m.Y" }}</td>
-                <td>{{ object.published }}</td>
+                <td>{{ object.created_date|date:"d.m.Y" }}</td>
+                <td>{{ object.get_published_display|title }}</td>
                 <td>{{ object.views_cntr }}</td>
             </tr>
         {% endfor %}

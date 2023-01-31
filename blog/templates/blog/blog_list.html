@@ -31,7 +31,6 @@
                             <img src="/media/{{ object.preview }}" width=100 alt=""/>
                         </td>
                         <td>{{ object.created_date|date:"d.m.Y" }}</td>
-                        {#                <td>{{ object.published }}</td>#}
                         <td>
                             {{ object.get_published_display|title }}
                             {% if object.published == 'active' %}
@@ -47,7 +46,7 @@
                         </td>
                     </tr>
                 {% endfor %}
-            <div class="row align-items-start">
+            </div>
         </div>
         </tbody>
     </table>

@@ -7,29 +7,31 @@ from django.urls import reverse_lazy, reverse
 from blog.models import Blog
 
 
-def blog(request):
-    return render(request, 'blog/index.html')
-
-
 def contacts(request):
     return render(request, 'blog/contacts.html')
 
 
-class BlogListView(ListView):
-    model = Blog
+class BlogActiveListView(ListView):
+    queryset = Blog.objects.filter(published=Blog.STATUS_ACTIVE).all()
+    template_name = 'blog/index.html'
+
+
+class BlogAllListView(ListView):
+#    model = Blog
+    queryset = Blog.objects.all()
 #    context_object_name = 'posts'
 
 
 class BlogCreateView(CreateView):
     model = Blog
     fields = '__all__'
-#    fields = ('title', 'content', 'preview', 'published', 'views_cntr',)
+    #    fields = ('title', 'content', 'preview', 'published', 'views_cntr',)
     success_url = reverse_lazy('blog:list', )
 
 
 class BlogUpdateView(UpdateView):
     model = Blog
-#    fields = ('title', )
+    #    fields = ('title', )
     fields = '__all__'
     success_url = reverse_lazy('blog:list', )
 
