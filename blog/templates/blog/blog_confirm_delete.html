@@ -3,15 +3,17 @@
 {% block content %}
     <div class="row">
         <div class="col-4">
-            <div class="card-body">
-                <form method="post">
-                    {% csrf_token %}
-                    <p>
-                        Подтвердите удаление {{ object.title }}
-                    </p>
-                    <button class="btn btn-danger" type="submit">Удалить</button>
-                    <a class="btn btn-primary" href="{% url 'blog:List' %}">Отменить</a>
-                </form>
+            <div class="card">
+                <div class="card-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <p>
+                            Подтвердите удаление {{ object.title }} {{ object.content }}
+                        </p>
+                        <button class="btn btn-danger" type="submit">Удалить</button>
+                        <a class="btn btn-primary" href="{% url 'blog:list' %}">Отменить</a>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

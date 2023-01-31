@@ -17,46 +17,48 @@ def contacts(request):
 
 class BlogListView(ListView):
     model = Blog
-    context_object_name = 'posts'
+#    context_object_name = 'posts'
 
 
 class BlogCreateView(CreateView):
     model = Blog
-    fields = ('title')
-    success_url = reverse_lazy('blog:list')
+    fields = '__all__'
+#    fields = ('title', 'content', 'preview', 'published', 'views_cntr',)
+    success_url = reverse_lazy('blog:list', )
 
 
 class BlogUpdateView(UpdateView):
     model = Blog
-    fields = ('title')
-    success_url = reverse_lazy('blog:list')
+#    fields = ('title', )
+    fields = '__all__'
+    success_url = reverse_lazy('blog:list', )
 
 
 class BlogDeleteView(DeleteView):
     model = Blog
-    success_url = reverse_lazy('blog:delete')
+    success_url = reverse_lazy('blog:list')
 
 
 class BlogDetailView(DetailView):
     model = Blog
 
     def get_object(self, queryset=None):
-        queryset = super().get_queryset()
-        queryset = queryset.filter(published=Blog.STATUS_ACTIVE)
-        return queryset
+        obj = super().get_object(queryset=queryset)
+        if obj.published == 'active':
+            obj.views_cntr += 1
 
-    def get_context_data(self, *args, **kwargs):
-        context_data = super().get_context_data(*args, **kwargs)
-        context_data['title'] = 'Бла-бла-бла'
-        return context_data
+        if obj.views_cntr == 100:
+            print('Ушла почта!')
+            send_mail(
+                subject='Достижение',
+                message=f'Ваша публикация {obj.published} достигла {obj.views_cntr} просмотров',
+                from_email=settings.EMAIL_HOST_USER,
+                recipient_list=['VsslVssl@yandex.ru'],
+            )
 
-    # def get_object(self, queryset=None):
-    #     send_mail(
-    #         subject='Достижение',
-    #         message=f'Ваша публикация {blog_item.published} достигла {blog_item.cntr} просмотров',
-    #         from_email=settings.EMAIL_HOST_USER,
-    #         recipient_list=[],
-    #     )
+        obj.save()
+        return obj
+
 
 def change_status(request, pk):
     blog_item = get_object_or_404(Blog, pk=pk)

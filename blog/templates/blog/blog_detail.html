@@ -1,8 +1,9 @@
 {% extends 'blog/base.html' %}
 
 {% block content %}
+    <title>{{ object.slug }}</title>
     <div class="row">
-        <div class="col-4">
+        <div class="col-lg-8">
             <div class="card-body">
                 <table class="table">
                     <tr>
@@ -10,16 +11,28 @@
                         <td>{{ object.title }}</td>
                     </tr>
                     <tr>
+                        <td>Slug</td>
+                        <td>{{ object.slug }}</td>
+                    </tr>
+                    <tr>
+                        <td>Превью</td>
+                        <img src="/media/{{ object.preview }}" width=100 alt=""/>
+                    </tr>
+                    <tr>
                         <td>Содержание</td>
                         <td>{{ object.content }}</td>
                     </tr>
                     <tr>
-                        <td>Превью</td>
-                        <td>{{ object.preview }}</td>
-                    </tr>
-                    <tr>
                         <td>Дата публикации</td>
                         <td>{{ object.created_date }}</td>
+                    </tr>
+                    <tr>
+                        <td>Статус</td>
+                        <td>{{ object.published }}</td>
+                    </tr>
+                    <tr>
+                        <td>Просмотров</td>
+                        <td>{{ object.views_cntr }}</td>
                     </tr>
                 </table>
             </div>

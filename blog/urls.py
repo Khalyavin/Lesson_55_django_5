@@ -10,11 +10,11 @@ urlpatterns = [
     path('', blog, name='home'),
     path('contacts/', contacts, name='contacts'),
 
-    path('blog_list/', BlogListView.as_view(), name='list'),
+    path('list/', BlogListView.as_view(), name='list'),
     path('create/', BlogCreateView.as_view(), name='create'),
     path('update/<int:pk>/', BlogUpdateView.as_view(), name='update'),
     path('delete/<int:pk>/', BlogDeleteView.as_view(), name='delete'),
-    path('detail/<slug:slug>/', BlogDetailView.as_view(), name='detail'),
+    path('detail/<slug:pk>/', BlogDetailView.as_view(), name='detail'),
 
     path('status/<int:pk>/', change_status, name='status'),
 ]

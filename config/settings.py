@@ -77,7 +77,7 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.postgresql",
+        "ENGINE": "django.db.backends.postgresql_psycopg2",
         "NAME": 'catalog',
         "PORT": 5432,
         "HOST": 'localhost',
@@ -130,7 +130,7 @@ STATICFILES_DIRS = (
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-EMAIL_HOST = 'smtp.mail.ru'
+EMAIL_HOST = 'smtp.yandex.ru'
 EMAIL_PORT = 465
 #  EMAIL_HOST_USER = ''
 EMAIL_HOST_USER = 'fuckup@oscarbot.ru'
